@@ -18,65 +18,209 @@ namespace Prog_226_S23_L7_MultiThread
         {
             InitializeComponent();
 
-
         } // Form1()
-
-        async void LongTask()
-        {
-            DisplayToRTB("LongTask Started");
-
-            await Task.Delay(4000);
-
-            DisplayToRTB("LongTask Ended");
-
-        }
-
-        void LongProcess()
-        {
-            DisplayToRTB("LongProcess Started");
-
-            //some code that takes long execution time 
-            Thread.Sleep(4000); // hold execution for 4 seconds
-
-            DisplayToRTB("LongProcessEnded");
-        } // LongProcess
-
-        void ShortProcess()
-        {
-            DisplayToRTB("ShortProcess Started");
-
-            //do something here
-
-            DisplayToRTB("ShortProcess Completed");
-        } // ShortProcess()
 
         public void DisplayToRTB(string message)
         {
-            rtbDisplay.Text += message;
-            rtbDisplay.Text += "\n";
-        } // DisplayToRTB
+            rtbDisplay.Text += message + "\n";
+        } // DisplayToRtb
+
+        public void LongProcess()
+        {
+            DisplayToRTB("Long Process Started");
+
+            // This is locking up the Main thread that the GUI is on
+            Thread.Sleep(6000); // 1 thousand milliseconds equals 1 second
+
+            DisplayToRTB("Long Process Ended");
+
+
+        } // LongProcess
+
+        // Create another method for ShortProcess()
+        public void ShortProcess()
+        {
+            DisplayToRTB("Short Process Started");
+            DisplayToRTB("Short Process Ended");
+        } // ShortProcess()
 
         private void btnExample1_Click(object sender, EventArgs e)
         {
-            Stopwatch sw = new Stopwatch();
-
-            sw.Start();
-
-            DisplayToRTB("Start of Example");
-            LongProcess();
             ShortProcess();
-            DisplayToRTB("End of Example");
-
-            sw.Stop();
-
-            DisplayToRTB("-------------------" + sw.Elapsed.TotalSeconds.ToString());
+            LongProcess();
+            
         }
+
+        // Build our async methods
+        // async - method modifier - Tells the computer that a method runs in a special way
+        // await
+        // Tasks
+        public async void LongAsync(int number)
+        {
+            DisplayToRTB($"LongAsync started : Thread {number}");
+
+            // Replace Thread.Sleep with the async version
+            
+            await Task.Delay(4000);
+            
+            DisplayToRTB($"LongAsync Ended : Thread {number}");
+
+        } // LongAsync
 
         private void btnAsync_Click(object sender, EventArgs e)
         {
-            LongTask();
+            LongAsync(1);
             ShortProcess();
-        }
+        } // btnAsync_Click
+
+        private void btnMultiThread_Click(object sender, EventArgs e)
+        {
+            for (int i = 0; i < 5; i++)
+            {
+                LongAsync(i);
+            }
+        } // btnMultiThread_Click
+
+        private void btnStopWatch_Click(object sender, EventArgs e)
+        {
+            LoopAsync();
+        } // btnStopWatch_Click
+
+        public void StopwatchExample()
+        {
+            Stopwatch sw = new Stopwatch();
+            // Start my stopwatch
+            sw.Start(); // Starts the stop watch
+
+            int multiplier = 10 * 10 * 10 * 10 * 10 * 10;
+            for (int i = 0; i < 100 * multiplier; i++)
+            {
+                Random rand = new Random();
+                int randomNum1 = rand.Next(0, 1000000);
+                Random rand2 = new Random(randomNum1);
+                int randomNum2 = rand.Next(0, randomNum1);
+                Random rand3 = new Random(randomNum2);
+                int randomNum3 = rand.Next(0, randomNum2);
+
+            }
+
+
+            // Stop my stopwatch
+            sw.Stop(); // Stops the stop watch
+
+            DisplayToRTB(sw.ElapsedMilliseconds.ToString());
+        } // Stopwatch Example
+
+        public async void LoopAsync()
+        {
+            Stopwatch sw = new Stopwatch();
+            // Start my stopwatch
+            sw.Start(); // Starts the stop watch
+
+            int multiplier = 10 * 10 * 10 * 10 * 10;
+
+            await Task.Run(() =>
+            {
+                for (int i = 0; i < 10000000; i++)
+                {
+                    Random rand = new Random();
+                    int randomNum1 = rand.Next(0, 1000000);
+                    Random rand2 = new Random(randomNum1);
+                    int randomNum2 = rand.Next(0, randomNum1);
+                    Random rand3 = new Random(randomNum2);
+                    int randomNum3 = rand.Next(0, randomNum2);
+
+                }
+                DisplayToRTB("The for loop just stopped running");
+            });
+
+            // Stop my stopwatch
+            sw.Stop(); // Stops the stop watch
+
+            DisplayToRTB(sw.ElapsedMilliseconds.ToString());
+        } // LoopAsync
+
+        Action<int> loop = (s) =>
+        {
+            for (int i = 0; i < 100 * s; i++)
+            {
+                Random rand = new Random();
+                int randomNum1 = rand.Next(0, 1000000);
+                Random rand2 = new Random(randomNum1);
+                int randomNum2 = rand.Next(0, randomNum1);
+                Random rand3 = new Random(randomNum2);
+                int randomNum3 = rand.Next(0, randomNum2);
+
+            }
+        };
+
+        // Stopwatch : What is it and why is it so important
+        // Stopwatch Object
+        // stopwatch.Start()
+        // stopwatch.Stop()
+        // stopwatch.Elapsed.Milliseconds
+
+        // -------------------
+
+
+        //async void LongTask()
+        //{
+        //    DisplayToRTB("LongTask Started");
+
+        //    await Task.Delay(4000);
+
+        //    DisplayToRTB("LongTask Ended");
+
+        //}
+
+        //void LongProcess()
+        //{
+        //    DisplayToRTB("LongProcess Started");
+
+        //    //some code that takes long execution time 
+        //    Thread.Sleep(4000); // hold execution for 4 seconds
+
+        //    DisplayToRTB("LongProcessEnded");
+        //} // LongProcess
+
+        //void ShortProcess()
+        //{
+        //    DisplayToRTB("ShortProcess Started");
+
+        //    //do something here
+
+        //    DisplayToRTB("ShortProcess Completed");
+        //} // ShortProcess()
+
+
+
+        //public void DisplayToRTB(string message)
+        //{
+        //    rtbDisplay.Text += message;
+        //    rtbDisplay.Text += "\n";
+        //} // DisplayToRTB
+
+        //private void btnExample1_Click(object sender, EventArgs e)
+        //{
+        //    Stopwatch sw = new Stopwatch();
+
+        //    sw.Start();
+
+        //    DisplayToRTB("Start of Example");
+        //    LongProcess();
+        //    ShortProcess();
+        //    DisplayToRTB("End of Example");
+
+        //    sw.Stop();
+
+        //    DisplayToRTB("-------------------" + sw.Elapsed.TotalSeconds.ToString());
+        //}
+
+        //private void btnAsync_Click(object sender, EventArgs e)
+        //{
+        //    LongTask();
+        //    ShortProcess();
+        //}
     } // class
 
 } // namespace

@@ -31,6 +31,8 @@
             this.rtbDisplay = new System.Windows.Forms.RichTextBox();
             this.btnExample1 = new System.Windows.Forms.Button();
             this.btnAsync = new System.Windows.Forms.Button();
+            this.btnMultiThread = new System.Windows.Forms.Button();
+            this.btnStopWatch = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // rtbDisplay
@@ -61,11 +63,33 @@
             this.btnAsync.UseVisualStyleBackColor = true;
             this.btnAsync.Click += new System.EventHandler(this.btnAsync_Click);
             // 
+            // btnMultiThread
+            // 
+            this.btnMultiThread.Location = new System.Drawing.Point(70, 327);
+            this.btnMultiThread.Name = "btnMultiThread";
+            this.btnMultiThread.Size = new System.Drawing.Size(238, 48);
+            this.btnMultiThread.TabIndex = 3;
+            this.btnMultiThread.Text = "Run ( Multiple )";
+            this.btnMultiThread.UseVisualStyleBackColor = true;
+            this.btnMultiThread.Click += new System.EventHandler(this.btnMultiThread_Click);
+            // 
+            // btnStopWatch
+            // 
+            this.btnStopWatch.Location = new System.Drawing.Point(70, 435);
+            this.btnStopWatch.Name = "btnStopWatch";
+            this.btnStopWatch.Size = new System.Drawing.Size(238, 48);
+            this.btnStopWatch.TabIndex = 4;
+            this.btnStopWatch.Text = "Stopwatch Example";
+            this.btnStopWatch.UseVisualStyleBackColor = true;
+            this.btnStopWatch.Click += new System.EventHandler(this.btnStopWatch_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1016, 567);
+            this.Controls.Add(this.btnStopWatch);
+            this.Controls.Add(this.btnMultiThread);
             this.Controls.Add(this.btnAsync);
             this.Controls.Add(this.btnExample1);
             this.Controls.Add(this.rtbDisplay);
@@ -80,6 +104,8 @@
         private System.Windows.Forms.RichTextBox rtbDisplay;
         private System.Windows.Forms.Button btnExample1;
         private System.Windows.Forms.Button btnAsync;
+        private System.Windows.Forms.Button btnMultiThread;
+        private System.Windows.Forms.Button btnStopWatch;
     }
 }
 
