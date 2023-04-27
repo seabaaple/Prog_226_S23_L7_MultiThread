@@ -18,7 +18,48 @@ namespace Prog_226_S23_L7_MultiThread
         {
             InitializeComponent();
 
+            
+
         } // Form1()
+
+
+
+        // ---------------- Returning Values - Start
+
+        private async void btnReturnValue_Click(object sender, EventArgs e)
+        {
+            Stopwatch sw = new Stopwatch();
+            sw.Start();
+            double value = await PerformMath(1, 2);
+            sw.Stop();
+
+            DisplayToRTB($"Time Elapsed: {sw.Elapsed.TotalSeconds} : Result: {value}");
+        }
+
+        private void btnCallBack_Click(object sender, EventArgs e)
+        {
+            Task<int> call = Task.Run(async () =>
+            {
+                await Task.Delay(3000);
+                return 10;
+            });
+
+            call.ContinueWith(t =>
+            {
+                DisplayToRTB(t.Result + t.Result + "");
+            });
+        }
+
+
+        public async Task<double> PerformMath(double num1, double num2)
+        {
+
+            await Task.Delay(5000);
+
+            return num1 + num2;
+        }
+
+        // ----------------- Returning Values - End
 
         public void DisplayToRTB(string message)
         {
@@ -153,6 +194,8 @@ namespace Prog_226_S23_L7_MultiThread
 
             }
         };
+
+     
 
         // Stopwatch : What is it and why is it so important
         // Stopwatch Object

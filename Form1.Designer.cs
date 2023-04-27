@@ -33,6 +33,8 @@
             this.btnAsync = new System.Windows.Forms.Button();
             this.btnMultiThread = new System.Windows.Forms.Button();
             this.btnStopWatch = new System.Windows.Forms.Button();
+            this.btnReturnValue = new System.Windows.Forms.Button();
+            this.btnCallBack = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // rtbDisplay
@@ -83,11 +85,33 @@
             this.btnStopWatch.UseVisualStyleBackColor = true;
             this.btnStopWatch.Click += new System.EventHandler(this.btnStopWatch_Click);
             // 
+            // btnReturnValue
+            // 
+            this.btnReturnValue.Location = new System.Drawing.Point(1019, 95);
+            this.btnReturnValue.Name = "btnReturnValue";
+            this.btnReturnValue.Size = new System.Drawing.Size(181, 51);
+            this.btnReturnValue.TabIndex = 5;
+            this.btnReturnValue.Text = "Return Value";
+            this.btnReturnValue.UseVisualStyleBackColor = true;
+            this.btnReturnValue.Click += new System.EventHandler(this.btnReturnValue_Click);
+            // 
+            // btnCallBack
+            // 
+            this.btnCallBack.Location = new System.Drawing.Point(1019, 186);
+            this.btnCallBack.Name = "btnCallBack";
+            this.btnCallBack.Size = new System.Drawing.Size(181, 51);
+            this.btnCallBack.TabIndex = 6;
+            this.btnCallBack.Text = "Callback";
+            this.btnCallBack.UseVisualStyleBackColor = true;
+            this.btnCallBack.Click += new System.EventHandler(this.btnCallBack_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1016, 567);
+            this.ClientSize = new System.Drawing.Size(1301, 567);
+            this.Controls.Add(this.btnCallBack);
+            this.Controls.Add(this.btnReturnValue);
             this.Controls.Add(this.btnStopWatch);
             this.Controls.Add(this.btnMultiThread);
             this.Controls.Add(this.btnAsync);
@@ -106,6 +130,8 @@
         private System.Windows.Forms.Button btnAsync;
         private System.Windows.Forms.Button btnMultiThread;
         private System.Windows.Forms.Button btnStopWatch;
+        private System.Windows.Forms.Button btnReturnValue;
+        private System.Windows.Forms.Button btnCallBack;
     }
 }
 
