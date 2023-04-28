@@ -18,6 +18,9 @@ namespace Prog_226_S23_L7_MultiThread
         {
             InitializeComponent();
 
+            // Two new topics
+            // Returning a value async
+            // Callback
             
 
         } // Form1()
@@ -26,17 +29,91 @@ namespace Prog_226_S23_L7_MultiThread
 
         // ---------------- Returning Values - Start
 
-        private async void btnReturnValue_Click(object sender, EventArgs e)
+        // A callback is when a method is called after another event finishes
+        private async void btnCallBack_Click(object sender, EventArgs e)
         {
-            Stopwatch sw = new Stopwatch();
-            sw.Start();
-            double value = await PerformMath(1, 2);
-            sw.Stop();
+            //Task<int> task = Task.Run(async () =>
+            //{
+            //    DisplayToRTB("Task is running");
+            //    await Task.Delay(3000);
+            //    DisplayToRTB("Task is is finished");
 
-            DisplayToRTB($"Time Elapsed: {sw.Elapsed.TotalSeconds} : Result: {value}");
+            //    return 5000;
+            //});
+
+            //// The argument passed in, represents the value that is returned from the instanced Task
+            //// you can get the result with the .Result property
+            //await task.ContinueWith( returnedValueFromTask =>
+            //{
+            //    DisplayToRTB("Continue is running");
+            //    int sum = returnedValueFromTask.Result + returnedValueFromTask.Result;
+            //    DisplayToRTB("Continue is finished");
+            //    DisplayToRTB(sum.ToString());
+            //});
+
+            // Super summed up callback
+            Task doubleSum = Task.Run(async () => // Created a task
+            {
+                DisplayToRTB("Start Run");
+                await Task.Delay(3000); // I delayed the task by 3 seconds
+                return 2.5; // I returned a value of 2.5
+            }).ContinueWith(async t => // I added a CALLBACK with .ContinueWith() directly to my original Task
+            {
+                DisplayToRTB("Start Sum");
+                await Task.Delay(3000);
+                DisplayToRTB( (t.Result * t.Result).ToString());// I squared the result and returned it
+            });
+
+
+            //int number = await task;
+
+            //DisplayToRTB(number.ToString());
         }
 
-        private void btnCallBack_Click(object sender, EventArgs e)
+        private async void btnReturnValue_Click(object sender, EventArgs e)
+        {
+            DisplayToRTB("Before we call our async method");
+            // use await to let your async method return a specific type
+            double sum = await AddNumbers(5, 5);
+
+            DisplayToRTB("After we call");
+
+            DisplayToRTB(sum.ToString());
+        }
+
+        // Make this async
+        // It will return a Task<double>
+        public async Task<double> AddNumbers(double number1, double number2)
+        {
+            Stopwatch sw = new Stopwatch();
+            int sum = 0;
+
+            sw.Start();
+            await Task.Run(() =>
+            {
+                for (int i = 0; i < 5000000; i++)
+                {
+                    Random rand = new Random();
+                    int randomNum1 = rand.Next(0, 2000);
+                    Random rand2 = new Random(randomNum1);
+                    int randomNum2 = rand.Next(0, randomNum1);
+                    Random rand3 = new Random(randomNum2);
+                    int randomNum3 = rand.Next(0, randomNum2);
+
+                    sum += randomNum1;
+
+                }
+                DisplayToRTB("The for loop just stopped running");
+            });
+            sw.Stop();
+            DisplayToRTB(sw.ElapsedMilliseconds.ToString());
+
+            return sum;
+        }
+
+
+
+        public async void CallBackExample()
         {
             Task<int> call = Task.Run(async () =>
             {
@@ -44,7 +121,7 @@ namespace Prog_226_S23_L7_MultiThread
                 return 10;
             });
 
-            call.ContinueWith(t =>
+            await call.ContinueWith(t =>
             {
                 DisplayToRTB(t.Result + t.Result + "");
             });
@@ -57,6 +134,16 @@ namespace Prog_226_S23_L7_MultiThread
             await Task.Delay(5000);
 
             return num1 + num2;
+        }
+
+        public async void ExampleAsyncReturn()
+        {
+            Stopwatch sw = new Stopwatch();
+            sw.Start();
+            double value = await PerformMath(1, 2);
+            sw.Stop();
+
+            DisplayToRTB($"Time Elapsed: {sw.Elapsed.TotalSeconds} : Result: {value}");
         }
 
         // ----------------- Returning Values - End
@@ -162,7 +249,7 @@ namespace Prog_226_S23_L7_MultiThread
 
             await Task.Run(() =>
             {
-                for (int i = 0; i < 10000000; i++)
+                for (int i = 0; i < 100000; i++)
                 {
                     Random rand = new Random();
                     int randomNum1 = rand.Next(0, 1000000);
@@ -195,7 +282,12 @@ namespace Prog_226_S23_L7_MultiThread
             }
         };
 
-     
+        private void btnClear_Click(object sender, EventArgs e)
+        {
+            rtbDisplay.Text = "";
+        }
+
+
 
         // Stopwatch : What is it and why is it so important
         // Stopwatch Object

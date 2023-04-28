@@ -35,6 +35,7 @@
             this.btnStopWatch = new System.Windows.Forms.Button();
             this.btnReturnValue = new System.Windows.Forms.Button();
             this.btnCallBack = new System.Windows.Forms.Button();
+            this.btnClear = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // rtbDisplay
@@ -105,11 +106,22 @@
             this.btnCallBack.UseVisualStyleBackColor = true;
             this.btnCallBack.Click += new System.EventHandler(this.btnCallBack_Click);
             // 
+            // btnClear
+            // 
+            this.btnClear.Location = new System.Drawing.Point(565, 501);
+            this.btnClear.Name = "btnClear";
+            this.btnClear.Size = new System.Drawing.Size(246, 38);
+            this.btnClear.TabIndex = 7;
+            this.btnClear.Text = "Clear";
+            this.btnClear.UseVisualStyleBackColor = true;
+            this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1301, 567);
+            this.Controls.Add(this.btnClear);
             this.Controls.Add(this.btnCallBack);
             this.Controls.Add(this.btnReturnValue);
             this.Controls.Add(this.btnStopWatch);
@@ -132,6 +144,7 @@
         private System.Windows.Forms.Button btnStopWatch;
         private System.Windows.Forms.Button btnReturnValue;
         private System.Windows.Forms.Button btnCallBack;
+        private System.Windows.Forms.Button btnClear;
     }
 }
 
