@@ -30,7 +30,7 @@ namespace Prog_226_S23_L7_MultiThread
         // ---------------- Returning Values - Start
 
         // A callback is when a method is called after another event finishes
-        private async void btnCallBack_Click(object sender, EventArgs e)
+        public async void btnCallBack_Click(object sender, EventArgs e)
         {
             //Task<int> task = Task.Run(async () =>
             //{
@@ -43,12 +43,14 @@ namespace Prog_226_S23_L7_MultiThread
 
             //// The argument passed in, represents the value that is returned from the instanced Task
             //// you can get the result with the .Result property
-            //await task.ContinueWith( returnedValueFromTask =>
+            //await Task.ContinueWith( t =>
             //{
             //    DisplayToRTB("Continue is running");
-            //    int sum = returnedValueFromTask.Result + returnedValueFromTask.Result;
+            //    Task.Delay(3000);
+            //    int sum = t.Result + t.Result;
             //    DisplayToRTB("Continue is finished");
-            //    DisplayToRTB(sum.ToString());
+            //    //DisplayToRTB(sum.ToString());
+            //    Console.WriteLine(sum.ToString());
             //});
 
             // Super summed up callback
@@ -61,7 +63,7 @@ namespace Prog_226_S23_L7_MultiThread
             {
                 DisplayToRTB("Start Sum");
                 await Task.Delay(3000);
-                DisplayToRTB( (t.Result * t.Result).ToString());// I squared the result and returned it
+                DisplayToRTB((t.Result * t.Result).ToString());// I squared the result and returned it
             });
 
 
@@ -70,7 +72,7 @@ namespace Prog_226_S23_L7_MultiThread
             //DisplayToRTB(number.ToString());
         }
 
-        private async void btnReturnValue_Click(object sender, EventArgs e)
+        public async void btnReturnValue_Click(object sender, EventArgs e)
         {
             DisplayToRTB("Before we call our async method");
             // use await to let your async method return a specific type
@@ -209,6 +211,8 @@ namespace Prog_226_S23_L7_MultiThread
             }
         } // btnMultiThread_Click
 
+
+
         private void btnStopWatch_Click(object sender, EventArgs e)
         {
             LoopAsync();
@@ -249,7 +253,7 @@ namespace Prog_226_S23_L7_MultiThread
 
             await Task.Run(() =>
             {
-                for (int i = 0; i < 100000; i++)
+                for (int i = 0; i < multiplier; i++)
                 {
                     Random rand = new Random();
                     int randomNum1 = rand.Next(0, 1000000);
@@ -259,7 +263,7 @@ namespace Prog_226_S23_L7_MultiThread
                     int randomNum3 = rand.Next(0, randomNum2);
 
                 }
-                DisplayToRTB("The for loop just stopped running");
+                //DisplayToRTB("The for loop just stopped running");
             });
 
             // Stop my stopwatch
